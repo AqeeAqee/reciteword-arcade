@@ -20,6 +20,8 @@ sprMeaning.setText(wordData[1])
     answerIndex = Math.randomRange(0, CountOptions - 1)
     sprOptions[answerIndex].setText(wordData[0])
     sprOptions[answerIndex].setPosition(optionPositions[answerIndex][0], optionPositions[answerIndex][1])
+    sprOptions[1].left = 0
+    sprOptions[2].right=screen.width
     // info.startCountdown(10)
 }
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
