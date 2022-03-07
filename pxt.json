@@ -1,10 +1,9 @@
 {
-    "name": "ReciteWord",
+    "name": "ReciteWord1",
     "description": "",
     "dependencies": {
         "device": "*",
-        "arcade-story": "github:microsoft/arcade-storytelling#v1.0.3",
-        "arcade-text": "github:aqeeaqee/arcade-text#master"
+        "arcade-text": "github:aqeeaqee/arcade-text#v1.4.1"
     },
     "files": [
         "main.blocks",
@@ -12,11 +11,11 @@
         "README.md",
         "assets.json",
         "words.ts",
-        "bak_words.ts"
+        "bak_words.ts",
+        "words_RA6_08.ts",
+        "words_Primary.ts"
     ],
-    "testFiles": [
-        "test.ts"
-    ],
+    "testFiles": [],
     "targetVersions": {
         "target": "1.8.22",
         "targetId": "arcade"
@@ -24,5 +23,5 @@
     "supportedTargets": [
         "arcade"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "blocksprj"
 }

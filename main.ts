@@ -7,28 +7,30 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
 // let optionPositions: number[][] = [[80, 80], [80, 100]]
 function newQuiz () {
     for (let j = 0; j <= CountOptions - 1; j++) {
-        sprOptions[j].setText(Math.pickRandom(wordlist)[0])
+        sprOptions[j].setText(wordlist._pickRandom()[0])
         sprOptions[j].setPosition(optionPositions[j][0], optionPositions[j][1])
         sprOptions[j].setStayInScreen(true)
     }
-    console.log("newQuiz0")
-    let wordData= Math.pickRandom(wordlist)
-    console.log("newQuiz1")
-sprMeaning.setText(wordData[1])
-    console.log("newQuiz2")
-    sprMeaning.x = 80
     answerIndex = Math.randomRange(0, CountOptions - 1)
+    wordData = wordlist._pickRandom()
+    while (sprOptions.find((ts, index) => index!=answerIndex&& ts.text==wordData[0])) {
+        wordData = wordlist._pickRandom()
+    }
     sprOptions[answerIndex].setText(wordData[0])
+    sprMeaning.setText(wordData[1])
+    sprMeaning.x = 80
     sprOptions[answerIndex].setPosition(optionPositions[answerIndex][0], optionPositions[answerIndex][1])
     sprOptions[1].left = 0
-    sprOptions[2].right=screen.width
-    // info.startCountdown(10)
+    sprOptions[2].right = screen.width
+    sprOptions[2].right = scene.screenWidth()
+    info.startCountdown(10)
 }
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     checkAnswer(2)
 })
+// console.log("checkAnswer2")
 function checkAnswer (index: number) {
-    console.log("checkAnswer")
+    // console.log("checkAnswer")
     if (answerIndex == index) {
         info.changeScoreBy(1)
         music.baDing.play()
@@ -37,39 +39,27 @@ function checkAnswer (index: number) {
         music.powerDown.play()
     }
     newQuiz()
-    console.log("checkAnswer2")
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     checkAnswer(3)
 })
+let wordData: string[] = []
 let answerIndex = 0
 let optionPositions: number[][] = []
 let sprOptions: TextSprite[] = []
 let sprOption: TextSprite = null
 let sprMeaning: TextSprite = null
+let wordlist: string[][] = []
 let CountOptions = 0
 CountOptions = 4
-let wordlist = wordlists.getWords(WordlistName.RA6_08)
-sprMeaning = textsprite.create(Math.pickRandom(wordlist)[0])
+wordlist = wordlists.getWords(WordlistName.PrimaryAll)
+sprMeaning = textsprite.create(wordlist._pickRandom()[0])
 sprMeaning.setOutline(1, 3)
 sprMeaning.y = 22
 sprMeaning.setMaxFontHeight(12)
 sprMeaning.setCharsPerLine(10)
-// sprOptions[i].y=i*20+40
-// sprOptions[i].x = 80
-let imgArrow = img`
-    . 1 1 3 1 1 . . .
-    1 1 3 3 3 1 1 . .
-    1 3 3 3 3 3 1 . .
-    3 1 1 3 1 1 3 . .
-    1 1 1 3 1 1 1 . .
-    1 1 1 3 1 1 1 . .
-    . 1 1 3 1 1 . . .
-    . . . . . . . . .
-    . . . . . . . . .
-`
 for (let i = 0; i <= CountOptions - 1; i++) {
-    sprOption = textsprite.create("",0,1)
+    sprOption = textsprite.create("", 0, 1)
     sprOption.setScale(1, ScaleAnchor.Middle)
     // sprOption.setOutline(1, 9)
     // sprOption.setBorder(1,11)
